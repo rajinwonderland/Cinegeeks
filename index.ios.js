@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native';
 import {
   List,
@@ -75,16 +76,23 @@ export default class Cinegeeks extends Component {
     }));
     return (
       <ScrollView>
-        <List>
+        <List containerStyle={{padding: 15, backgroundColor: '#f5f5f5', borderTopWidth: 0, borderBottomWidth: 0}}>
           {
             movies.map((m, i) => (
               <ElevatedView key={i} elevation={1} style={styles.card}>
-                <Text style={styles.welcome}>
-                  {m.title}
-                </Text>
-                <Text style={styles.instructions}>
-                  {m.year}
-                </Text>
+                <Image
+                  source={{uri: m.poster}}
+                  resizeMode='contain'
+                  style={{height: 100, width: 100}}
+                />
+                <View>
+                  <Text style={styles.welcome}>
+                    {m.title}
+                  </Text>
+                  <Text style={styles.instructions}>
+                    {m.year}
+                  </Text>
+                </View>
               </ElevatedView>
             ))
           }
@@ -118,23 +126,23 @@ export default class Cinegeeks extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#f5f5f5',
   },
   card: {
     backgroundColor: 'white',
     alignSelf: 'stretch',
-    alignItems: 'stretch',
-    height: 200,
-    margin: 15
+    alignItems: 'center',
+    height: 115,
+    padding: 15,
+    margin: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   welcome: {
     fontSize: 20,
-    margin: 10,
   },
   instructions: {
     color: '#333333',
-    margin: 10,
-    marginBottom: 5,
   },
 });
 
