@@ -82,10 +82,10 @@ export default class Cinegeeks extends Component {
               <ElevatedView key={i} elevation={1} style={styles.card}>
                 <Image
                   source={{uri: m.poster}}
-                  resizeMode='contain'
-                  style={{height: 100, width: 100}}
+                  resizeMode='cover'
+                  style={styles.poster}
                 />
-                <View>
+                <View style={styles.data}>
                   <Text style={styles.welcome}>
                     {m.title}
                   </Text>
@@ -132,16 +132,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignSelf: 'stretch',
     alignItems: 'center',
-    height: 115,
-    padding: 15,
+    height: 100,
+    paddingRight: 15,
     margin: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },
+  data: {
+    marginLeft: 10,
+    flexWrap: 'wrap'
+  },
+  poster: {
+    width: 67,
+    height: 100
+  },
   welcome: {
-    fontSize: 20,
+    fontSize: 16,
   },
   instructions: {
+    fontSize: 12,
     color: '#333333',
   },
 });
