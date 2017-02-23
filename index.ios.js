@@ -111,7 +111,7 @@ export default class Cinegeeks extends Component {
                   style={styles.poster}
                 />
                 <View style={styles.data}>
-                  <Text style={styles.welcome}>
+                  <Text numberOfLines={1} style={styles.welcome}>
                     {m.title}
                   </Text>
                   <Text style={styles.instructions}>
@@ -168,10 +168,10 @@ const styles = StyleSheet.create({
     margin: 5,
     flexDirection: 'row',
     alignItems: 'center',
+    overflow: 'hidden'
   },
   data: {
     margin: 10,
-    flexWrap: 'wrap',
   },
   poster: {
     width: 67,
