@@ -70,6 +70,7 @@ export default class Cinegeeks extends Component {
 
   renderData = () => {
     let movies = this.state.movies.map(m => ({
+      id: m.imdbID,
       title: m.Title,
       poster: m.Poster,
       year: m.Year
