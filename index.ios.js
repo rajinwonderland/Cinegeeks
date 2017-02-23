@@ -19,6 +19,7 @@ import {
   FormLabel
 } from 'react-native-elements';
 import ElevatedView from 'react-native-elevated-view';
+import {Toolbar, ThemeProvider} from 'react-native-material-ui';
 import Frisbee from 'frisbee';
 
 const api = new Frisbee({
@@ -30,6 +31,30 @@ const api = new Frisbee({
 });
 
 
+const uiTheme = {
+    palette: {
+        primaryColor: '#03A9F4',
+    },
+    toolbar: {
+      container: {
+          height: 50,
+      },
+      leftElementContainer: {
+        backgroundColor: 'transparent'
+      },
+      rightElementContainer: {
+        backgroundColor: 'transparent'
+      },
+      titleText: {
+        fontSize: 16
+      },
+    },
+    toolbarSearchActive: {
+      container: {
+        backgroundColor: 'white'
+      }
+    }
+};
 
 
 
@@ -45,7 +70,6 @@ export default class Cinegeeks extends Component {
 
   makeRequests = async(search) => {
     try {
-
       // make the request
       let res = await api.post('s='+search);
       //console.log('response', res.body);
@@ -72,7 +96,7 @@ export default class Cinegeeks extends Component {
     let movies = this.state.movies.map(m => ({
       id: m.imdbID,
       title: m.Title,
-      poster: m.Poster,
+      poster: m.Poster == 'N/A' ? 'http://cdn.hitfix.com/images2/assets/site/poster_default.gif' : m.Poster,
       year: m.Year
     }));
     return (
@@ -111,15 +135,21 @@ export default class Cinegeeks extends Component {
   render() {
     let search = this.state.search;
     return (
-      <View style={styles.container}>
-        <FormLabel>Search Some Movie</FormLabel>
-        <FormInput
-          placeholder='Some Movie'
-          onChangeText={this.changeText}
-          onSubmitEditing={() => this.makeRequests(search)}
-        />
-        {this.state.searched ? this.renderData() : <View/>}
-      </View>
+      <ThemeProvider uiTheme={uiTheme}>
+        <View style={styles.container}>
+          <Toolbar
+            leftElement='menu'
+            centerElement='CineGeeks'
+            searchable={{
+               autoFocus: true,
+               placeholder: 'Search Movies...',
+               onChangeText: () => this.changeText,
+               onSubmitEditing: () => this.makeRequests(search)
+             }}
+          />
+          {this.state.searched ? this.renderData() : <View/>}
+        </View>
+      </ThemeProvider>
     );
   }
 }
@@ -140,8 +170,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   data: {
-    marginLeft: 10,
-    flexWrap: 'wrap'
+    margin: 10,
+    flexWrap: 'wrap',
   },
   poster: {
     width: 67,
